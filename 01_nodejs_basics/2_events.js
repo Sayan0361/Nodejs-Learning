@@ -69,6 +69,13 @@ eventEmitter.removeListener("tempEvent", temporaryListener);
 console.log("\n--- Emitting 'tempEvent' after removal ---");
 eventEmitter.emit("tempEvent"); // No output
 
+// Error Handling
+eventEmitter.on("error",(err)=>{
+    console.error(`Error occured: ${err.message}`)
+})
+eventEmitter.emit("error", new Error("Something went wrong"))
+
+
 /*
 💡 Summary of EventEmitter:
 1. .on(eventName, callback)  → Listen to an event (can run multiple times)
