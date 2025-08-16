@@ -67,16 +67,48 @@
  * We'll also send back different HTTP status codes to simulate real-world APIs.
  */
 
+
+// TASK :- BUILD A HTTP SERVER WITH THE FOLLOWING FEATURES:
+// 1. GET : '/' SEND SIMPLE HELLO FROM SERVER
+// 2. GET : '/contact-us' SEND YOUR EMAIL AND CONTACT NUMBER TO THE USER
+// 3. POST : '/tweet' DO A FAKE DB OPERATION AND SEND THE ACK
+// 4. GET : '/tweet' SEND ALL THE TWEETS FROM FAKE DB TO USER
+
+// ALSO U NEED TO LOG THE INCOMING REQUESTS WITH TIMESTAMPS IN THE FILE 'log.txt'
+
 const http = require('http')
 const PORT = 8000;
+const fs = require('fs')
 
 const server = http.createServer((req,res)=>{
-    console.log("I got an incoming request")
-    // send success status code
-    res.writeHead(200,{
-        'Content-Type':'application/json'
-    })
-    res.end("Yes its running...")
+    const method = req.method;
+    const path = req.url;
+
+    const log = `\n[${Date.now()}] : ${method} ${path}`;
+    fs.appendFileSync('log.txt', log, 'utf-8')
+
+    switch(method){
+        case 'GET':{
+            switch(path){
+                case '/':
+                    return res.writeHead(200).end('Hello from the server 🙋‍♂️');
+                case '/contact-us':
+                    return res.writeHead(200).end('Contact me at sayansen0361@gmail.com');
+                case '/tweet':
+                    return res.writeHead(200).end('Your tweets');
+            }
+        }
+        break;
+        case 'POST':{
+            switch(path){
+                case '/tweet':
+                    // Fake db operation
+                    return res.writeHead('201').end('your tweet was created')
+            }
+        }
+    }
+    return res.writeHead('404').end('This is not where u are supposed to be')
+    
 });
 
 server.listen(PORT,()=>{
