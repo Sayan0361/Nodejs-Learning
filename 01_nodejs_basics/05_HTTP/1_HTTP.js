@@ -54,17 +54,6 @@
  *    - 500 Internal Server Error: Generic server crash.
  *    - 502 Bad Gateway: Invalid response from upstream server.
  *    - 503 Service Unavailable: Server overloaded or down.
- *
- * ============================
- * DEMO — Node.js HTTP Server
- * ============================
- * We'll create a server that handles:
- *  - GET requests (returns data)
- *  - POST requests (receives JSON)
- *  - PUT requests (updates data)
- *  - DELETE requests (deletes data)
- *
- * We'll also send back different HTTP status codes to simulate real-world APIs.
  */
 
 
