@@ -1,13 +1,11 @@
 {
-  "name": "02_express",
+  "name": "03_mvc",
   "version": "1.0.0",
   "description": "",
-  "main": "0_basics.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon 0_basics.js",
-    "api" : "nodemon 1_restapi.js",
-    "middleware": "nodemon 2_middleware.js"
+    "dev": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
