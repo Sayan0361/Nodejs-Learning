@@ -1,0 +1,71 @@
+1. Database (DB) Definition:
+A Database is an organized collection of data that can be stored, managed, and retrieved efficiently.
+Think of it as a digital filing system where data is structured and accessed by software.
+Example: Your Instagram account → usernames, passwords, posts, comments, likes → all stored in a database.
+
+2. Types of Databases
+
+Mainly two categories:
+
+A. SQL Databases (Relational Databases)
+SQL = Structured Query Language.
+
+- Data is stored in tables (rows and columns).
+- Uses a fixed schema (predefined structure).
+- Great for structured data and complex relationships.
+
+Examples:
+- MySQL
+- PostgreSQL
+- Oracle DB
+- Microsoft SQL Server
+
+Advantages:
+- Strong consistency and reliability (ACID properties).
+- Best for applications where relationships matter (e.g., banking, e-commerce, ERP systems).
+
+B. NoSQL Databases (Non-Relational Databases)
+- No fixed schema → flexible, can store unstructured/semi-structured data.
+- Instead of tables, they use different data models:
+
+  * Document-based → MongoDB
+  * Key-Value → Redis
+  * Column-based → Cassandra
+  * Graph-based → Neo4j
+
+Advantages:
+- High scalability.
+- Faster for large datasets.
+- Good for real-time apps (social media feeds, chat apps, IoT).
+
+3. SQL vs NoSQL Quick Comparison
+
+Feature          | SQL (Relational)        | NoSQL (Non-relational)
+--------------------------------------------------------------------
+Data Storage     | Tables (rows & columns) | Documents, Key-Value, Graph, Columns
+Schema           | Fixed                   | Flexible
+Best for         | Structured data, transactions | Unstructured data, scalability
+Examples         | MySQL, PostgreSQL       | MongoDB, Redis, Cassandra
+
+4. ORM (Object Relational Mapping)
+ORM is a tool/library that allows developers to interact with a database using objects instead of raw SQL queries.
+It maps database tables to classes in your programming language.
+
+👉 Example (without ORM):
+SELECT * FROM users WHERE id = 1;
+
+👉 Example (with ORM like Sequelize/TypeORM in JS):
+const user = await User.findByPk(1);
+
+Benefits of ORM:
+- Less boilerplate code (no need to write raw SQL).
+- Database independence (can switch SQL engines easily).
+- Object-oriented → matches modern programming languages.
+
+Popular ORMs:
+- JavaScript/Node.js → Sequelize, TypeORM, Prisma, Mongoose (for MongoDB), Drizzle.
+- Python → SQLAlchemy, Django ORM.
+- Java → Hibernate.
+
+
+We will use Drizzle here!

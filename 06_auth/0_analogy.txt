@@ -1,0 +1,51 @@
+Parking Lot Analogy for Authentication & Authorization
+-------------------------------------------------------
+
+Parking Lot Analogy:
+- Cars = Users
+- Security Guards = Authentication/Authorization systems
+- Diary (Tokens) = Session tokens / credentials
+
+-------------------------------------------------------
+1 Security Guard = 1 Diary (Tokens)
+- Meaning: Only one guard (single system) keeps track of all users.
+- Pros:
+  * Users don’t need to remember who handled them (central authority).
+- Cons:
+  * Single guard = slow, bottleneck.
+  * Too much load on one system.
+- Real-world: One centralized authentication server.
+
+-------------------------------------------------------
+4 Security Guards = 1 Diary (Tokens)
+- Meaning: Multiple guards (servers), but all share the same diary (shared DB).
+- Pros:
+  * Load is distributed across guards.
+- Cons:
+  * Only one diary can be written at a time (bottleneck).
+  * Speed still limited.
+- Real-world: Multiple authentication servers with a shared session store. 
+
+-------------------------------------------------------
+4 Security Guards = 4 Diaries (Tokens)
+- Meaning: Each guard keeps their own diary (local storage).
+- Pros:
+  * Removes diary bottleneck; each guard works independently.
+- Cons:
+  * Customers (users) must remember which guard they went to (session stickiness).
+- Real-world: Each server keeps its own session data locally. Called "Session based authentication"
+  Server becomes statefull. Nice for short lived session like banking.
+
+-------------------------------------------------------
+AuthN vs AuthZ
+- Authentication (AuthN) = Verifying who you are (guard checking you when you enter).
+- Authorization (AuthZ) = Verifying what you can do (which parking spot you’re allowed).
+- Tokens/Diaries = Proof of authentication (session token/JWT).
+
+-------------------------------------------------------
+Takeaway:
+- Centralized storage: Simple but slow.
+- Shared DB: Scales a bit, but bottlenecks remain.
+- Local storage: Fast, but requires routing users to the same server.
+- Modern solution: Use stateless tokens (JWTs) or distributed caches (Redis),
+  so any server can validate tokens without depending on where the session started.

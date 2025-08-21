@@ -1,0 +1,14 @@
+services:
+  postgres:
+    image: postgres:17
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: mydb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+
+
+# to run this file : "docker compose up -d"
+# -d is for running it in the background
+# to stop it "docker compose down"
