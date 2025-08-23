@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: your_user
+      POSTGRES_PASSWORD: your_password
+      POSTGRES_DB: your_db
+    ports:
+      - "5432:5432"
+    networks:
+      - drizzle-network
+
+  app:
+    image: node:16
+    container_name: drizzle-app
+    working_dir: /usr/src/app
+    volumes:
+      - .:/usr/src/app
+    environment:
+      DATABASE_URL: postgres://your_user:your_password@postgres-db:5432/your_db
+    depends_on:
+      - postgres
+    command: npm start
+    networks:
+      - drizzle-network
+
+networks:
+  drizzle-network:
+    driver: bridge
