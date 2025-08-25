@@ -5,7 +5,7 @@ const config = defineConfig({
     out:"./drizzle",   // where to keep the migrated db
     schema:"./drizzle/schema.js" ,// where are ur schema files
     dbCredentials: {
-        url:"postgres://postgres:admin@localhost:5432/mydb",
+        url:"postgres://postgres:admin@localhost:5433/mydb",
     },
 })
 
