@@ -32,9 +32,10 @@
     └── logger.js
  */
 
-
+require("dotenv/config")
 const express = require("express");
-const userRoutes = require("./routes/user.routes");
+const bookRoutes = require("./routes/book.routes");
+const authorRoutes = require("./routes/author.routes");
 const logger = require("./middlewares/logger");
 const auth = require("./middlewares/auth");
 const errorHandler = require("./middlewares/errorHandler");
@@ -52,8 +53,10 @@ app.use(logger); // logs every request
 app.get("/",(req,res)=>{
     res.send("Your server is working 👨‍💻")
 })
-app.use("/api/users", userRoutes); // basic routes
-app.use("/api/secure", auth, userRoutes); // secure routes with auth middleware
+
+app.use("/books", bookRoutes); // basic routes
+app.use("/authors", authorRoutes); // basic routes
+// app.use("/api/secure", auth, bookRoutes); // secure routes with auth middleware
 
 // Use error handling middleware (keep it last)
 app.use(errorHandler);
