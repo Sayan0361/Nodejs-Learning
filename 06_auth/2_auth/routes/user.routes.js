@@ -8,8 +8,29 @@ import { randomBytes, createHmac } from "node:crypto"; // For password hashing &
 // Create an Express Router (to define routes separately)
 const router = express.Router();
 
-// Just a placeholder GET route (currently does nothing)
-router.get("/");
+// the logic is in index.js middleware part
+router.get("/",async(req,res)=>{
+    const user = req.user;
+    if(!user){
+        return res.status(401).json({error:"Unauthorised: You aren't logged in"});
+    }
+    return res.status(201).json({
+        user
+    });
+});
+
+router.patch("/",async(req,res)=>{
+    const user = req.user;
+    if(!user){
+        return res.status(401).json({error:"Unauthorised: You aren't logged in"});
+    }
+    const {name} = req.body;
+    await db.update(usersTable).set({name}).where(eq(usersTable.id,user.id))
+
+    return res.json({
+        status:"success"
+    })
+})
 
 // ---------------- SIGNUP ROUTE ------------------
 router.post("/signup", async (req, res) => {
