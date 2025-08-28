@@ -1,0 +1,41 @@
+// Imagine you log in to a website.
+// Normally, the server has to "remember" you with sessions (stored in DB).
+// But with JWT, the server doesn’t store anything. Instead, it gives YOU a token.
+
+// A JWT is just a string with 3 parts: header, payload, and signature.
+// Example: xxxxx.yyyyy.zzzzz
+
+// 1. Header: tells which algorithm is used (like HS256)
+// 2. Payload: contains data (like userId, email, role, etc.)
+// 3. Signature: ensures the token is not tampered with
+
+// When you log in successfully:
+const jwt = require("jsonwebtoken");
+
+const user = { id: 1, email: "sayan@gmail.com" };
+
+// Server creates a token with secret key
+const token = jwt.sign(user, "mySecretKey", { expiresIn: "1h" });
+// Now client (browser/app) stores this token (usually in localStorage or cookies).
+
+console.log("JWT Token:", token);
+
+// Later, when client makes requests:
+// Instead of sending username+password again,
+// it just sends the token in the headers:
+
+// Example header: Authorization: Bearer <token>
+
+// Server receives token and verifies it:
+try {
+  const decoded = jwt.verify(token, "mySecretKey");
+  // If valid, we get back the user info we put inside payload
+  console.log("Decoded payload:", decoded);
+} catch (err) {
+  // If someone changed the token or it expired -> error
+  console.log("Invalid token");
+}
+
+// JWT = A sealed envelope that says "This is Sayan",
+// signed by the server. Client carries it around and shows it,
+// so the server doesn’t need to remember anything.

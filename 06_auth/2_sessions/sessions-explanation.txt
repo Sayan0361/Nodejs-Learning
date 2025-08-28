@@ -1,0 +1,42 @@
+// SESSIONS EXPLAINED
+// Think of it like going to a club 🕺. You don’t carry proof every time,
+// instead, the bouncer gives you a hand-stamp (session id).
+// The club (server) keeps the guest list (session data) with details.
+
+// 1. When you log in:
+const express = require("express");
+const session = require("express-session");
+
+const app = express();
+
+app.use(
+  session({
+    secret: "mySecretKey", // used to sign the session ID cookie
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 60000 }, // session lasts for 1 min
+  })
+);
+
+// 2. When user logs in successfully:
+app.post("/login", (req, res) => {
+  // Example: user authenticated
+  req.session.user = { id: 1, email: "sayan@gmail.com" };
+  // Server stores this in memory/DB with a unique ID.
+  // Browser gets only a cookie: "connect.sid = <sessionId>"
+  res.send("Logged in with session!");
+});
+
+// 3. On next request, browser automatically sends that cookie back.
+// Server looks up sessionId in its guest list (store).
+app.get("/profile", (req, res) => {
+  if (req.session.user) {
+    res.send(`Welcome ${req.session.user.email}`);
+  } else {
+    res.send("Not logged in");
+  }
+});
+
+// TL;DR: 
+// - Sessions = Server keeps the data (guest list). Browser only keeps an ID (stamp).
+// - JWT = Client keeps the data (whole ticket). Server only verifies signature.
